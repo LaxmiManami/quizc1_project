@@ -1,0 +1,86 @@
+{% extends "quiz_app/base.html" %}
+{% load static %}
+
+{% block title %}Take {{ quiz.title }}{% endblock %}
+
+{% block hero %}
+<div class="quiz-container">
+  <h2 class="quiz-title">{{ quiz.title }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {% for q in questions %}
+      <div class="question-block mb-4">
+        <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+
+        <label><input type="radio" name="{{ q.id }}" value="{{ q.option1 }}"> {{ q.option1 }}</label><br>
+        <label><input type="radio" name="{{ q.id }}" value="{{ q.option2 }}"> {{ q.option2 }}</label><br>
+        <label><input type="radio" name="{{ q.id }}" value="{{ q.option3 }}"> {{ q.option3 }}</label><br>
+        <label><input type="radio" name="{{ q.id }}" value="{{ q.option4 }}"> {{ q.option4 }}</label><br>
+      </div>
+    {% endfor %}
+      <div class="submit-btn">
+    <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  body{
+    background-color:  #f9f9f9;
+  }
+   main {
+    flex: 1;   /* pushes footer down */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.quiz-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.question-block {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background:  #ddd2d2ff; /* light grey */
+}
+
+.question-block strong {
+  font-size: 18px;
+  font-weight: bold;
+}
+.quiz-title {
+  font-size: 32px;      /* bigger size */
+  font-weight: 800;     /* extra bold */
+  text-align: center;   /* centered */
+  color: #191818ff;          /* dark text */
+  margin-bottom: 20px;
+}
+.submit-btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+.submit-btn button {
+  background: linear-gradient(135deg, #0a0d0dff, #43f48dff);
+  padding: 10px 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+</style>
+
+{% endblock %}

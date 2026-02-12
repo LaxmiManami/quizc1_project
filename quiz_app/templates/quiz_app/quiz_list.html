@@ -1,0 +1,100 @@
+{% extends "quiz_app/base.html" %}
+{% load static %}
+
+{% block title %}Quizzes - Kids Quiz{% endblock %}
+
+{% block hero %}
+<div class="hero" style="background: url('{% static "images/newimg.jpg" %}') no-repeat center center;></div>
+background-size: cover; 
+min-height: 84vh; 
+position: relative; 
+display: flex; 
+justify-content: center; 
+align-items: center;">
+
+  <!-- Dark overlay -->
+  <div class="overlay"></div>
+
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="quiz-wrapper">
+  <div class="quiz-box">
+    <h2 class="mb-4">Available Quizzes</h2>
+    <div class="list-group">
+      {% for quiz in quizzes %}
+        <a href="{% url 'quiz_detail' quiz.id %}" class="list-group-item list-group-item-action">
+          {{ quiz.title }}
+        </a>
+      {% empty %}
+        <p>No quizzes available yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .quiz-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0px 6px 20px rgba(10, 1, 1, 0.4);
+      text-align: center;
+  }
+
+  .list-group-item {
+      background: linear-gradient(135deg, #0a0d0dff, #43f48dff);
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 12px 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .list-group-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+      text-decoration: none;
+      color: #0e0e0eff;
+  }
+  .hero {
+    position: relative;
+}
+
+.quiz-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(245, 241, 241, 0.4); /* darker effect */
+    z-index: 1;
+}
+.quiz-box h2 {
+      font-size: 28px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      color: #000;
+  }
+
+</style>
+{% endblock %}

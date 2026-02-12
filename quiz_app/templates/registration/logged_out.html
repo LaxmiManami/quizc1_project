@@ -1,0 +1,7 @@
+{% extends "quiz_app/base.html" %}
+{% block content %}
+<div class="container" style="text-align: center; margin-top: 50px;">
+  <h2>You have been logged out successfully.</h2>
+  <a href="{% url 'login' %}" class="btn btn-primary mt-3">Login again</a>
+</div>
+{% endblock %}

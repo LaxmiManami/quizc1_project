@@ -1,0 +1,75 @@
+{% extends "quiz_app/base.html" %}
+{% load static %}
+
+{% block title %}Review: {{ quiz.title }}{% endblock %}
+
+{% block content %}
+<div class="review-container">
+  <h2 class="review-title">Review: {{ quiz.title }}</h2>
+
+  {% for q in questions %}
+    <div class="review-block">
+      <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+      <p>
+        Your Answer: 
+        {% if user_answers.q.id == q.option1 or user_answers.q.id == q.option2 or user_answers.q.id == q.option3 or user_answers.q.id == q.option4 %}
+          {% if user_answers.q.id == q.correct_answer %}
+            <span class="correct">{{ user_answers.q.id }}</span> ✅
+          {% else %}
+            <span class="wrong">{{ user_answers.q.id }}</span> ❌
+          {% endif %}
+        {% else %}
+          <span class="wrong">Not Answered</span> ❌
+        {% endif %}
+      </p>
+      <p>Correct Answer: <span class="correct">{{ q.correct_answer }}</span> ✅</p>
+    </div>
+  {% endfor %}
+
+  <div class="back-btn">
+    <a href="{% url 'quiz_list' %}" class="btn btn-dark">Back to Quizzes</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+.review-container {
+  max-width: 800px;
+  margin: 50px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.review-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.review-block {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.correct {
+  color: green;
+  font-weight: bold;
+}
+
+.wrong {
+  color: red;
+  font-weight: bold;
+}
+
+.back-btn {
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
+{% endblock %}
